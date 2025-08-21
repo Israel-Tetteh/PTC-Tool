@@ -422,10 +422,10 @@ ui <- navbarPage(
                   "Streamline your research with automated datasheet generation, comprehensive statistical analysis, and publication-ready visualizations for plant tissue culture experiments."
                 ),
                 div(class = "hero-buttons",
-                    # Links to other tabs in your app
-                    tags$a(href = "#", class = "btn-hero-primary", 
-                           onclick = "$('.nav-tabs a[href=\"#shiny-tab-2\"]').tab('show'); return false;",
-                           "Start Analyzing"),
+                    # Action buttons for navigation
+                    actionButton("go_to_datasheet", "Start Analyzing", 
+                                 class = "btn-hero-primary", 
+                                 icon = icon("rocket")),
                     tags$a(href = "#features", class = "btn-hero-secondary", "Learn More")
                 )
             )
@@ -495,10 +495,10 @@ ui <- navbarPage(
             div(class = "cta-content",
                 h2("Ready to Transform Your Research?"),
                 p("Join researchers worldwide who are streamlining their plant tissue culture analysis with our comprehensive toolkit."),
-                # Link to Generate Datasheet tab
-                tags$a(href = "#", class = "btn-hero-primary",
-                       onclick = "$('.nav-tabs a[href=\"#shiny-tab-2\"]').tab('show'); return false;",
-                       "Launch PTC Analysis Tool")
+                # Action button for navigation
+                actionButton("go_to_datasheet_2", "Launch PTC Analysis Tool",
+                             class = "btn-hero-primary",
+                             icon = icon("play"))
             )
         ),
         
