@@ -26,40 +26,520 @@ ui <- navbarPage(
     gradient = "linear",
     direction = "bottom"
   ),
+  # Replace your current nav_panel "Welcome!" with this:
+  
   nav_panel(
     title = "Welcome!", icon = icon("home"),
-    bslib::card(
-      bslib::card_header(
-        h2("Welcome to PTC Analysis Tool", class = "text-center")
-      ),
-      bslib::card_body(
-        h4("About this tool:"),
-        p("The PTC Analysis Tool helps researchers generate data collection sheets for plant tissue culture experiments and analyze the results."),
-        h4("Features:"),
-        tags$ul(
-          tags$li("Generate data collection templates for single factor or factorial experiments"),
-          tags$li("Import and visualize your data"),
-          tags$li("Perform statistical analysis including ANOVA, LSD, and Tukey's HSD"),
-          tags$li("Create publication-ready visualizations")
-        ),
-        h4("Getting Started:"),
-        p("Use the navigation menu above to:"),
-        tags$ol(
-          tags$li("Generate a datasheet for your experiment"),
-          tags$li("Import your completed datasheet"),
-          tags$li("Analyze your data and generate results")
-        ),
-        h4("Need Help?"),
-        p("Contact the developer using the information in the footer.")
-      ),
-      class = "mb-4"
+    
+    # Custom CSS for the landing page
+    tags$head(
+      tags$style(HTML("
+      :root {
+        --primary-green: #2d5016;
+        --secondary-green: #4a7c59;
+        --accent-green: #7fb069;
+        --light-green: #a7c957;
+        --bg-light: #f8fffe;
+        --text-dark: #1a1a1a;
+        --shadow: rgba(45, 80, 22, 0.15);
+      }
+      
+      .landing-page {
+        margin: -15px;
+        padding: 0;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        background: linear-gradient(135deg, var(--bg-light) 0%, #e8f5e8 100%);
+        min-height: 100vh;
+        position: relative;
+        overflow: hidden;
+      }
+      
+      .particles {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+        z-index: 1;
+      }
+      
+      .particle {
+        position: absolute;
+        width: 4px;
+        height: 4px;
+        background: var(--accent-green);
+        border-radius: 50%;
+        opacity: 0.6;
+        animation: float 6s infinite linear;
+      }
+      
+      @keyframes float {
+        0% { transform: translateY(100vh) rotate(0deg); opacity: 0; }
+        10% { opacity: 0.6; }
+        90% { opacity: 0.6; }
+        100% { transform: translateY(-10vh) rotate(360deg); opacity: 0; }
+      }
+      
+      .hero-section {
+        height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        position: relative;
+        z-index: 2;
+        padding: 0 2rem;
+      }
+      
+      .hero-content {
+        max-width: 800px;
+        animation: fadeInUp 1s ease-out;
+      }
+      
+      @keyframes fadeInUp {
+        from { opacity: 0; transform: translateY(50px); }
+        to { opacity: 1; transform: translateY(0); }
+      }
+      
+      .hero-title {
+        font-size: 4rem;
+        font-weight: 800;
+        background: linear-gradient(135deg, var(--primary-green), var(--secondary-green));
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        margin-bottom: 1rem;
+        line-height: 1.2;
+      }
+      
+      .hero-subtitle {
+        font-size: 1.3rem;
+        color: var(--text-dark);
+        margin-bottom: 3rem;
+        line-height: 1.6;
+      }
+      
+      .hero-buttons {
+        display: flex;
+        gap: 1rem;
+        justify-content: center;
+        flex-wrap: wrap;
+      }
+      
+      .btn-hero-primary {
+        background: linear-gradient(135deg, var(--secondary-green), var(--accent-green));
+        color: white;
+        padding: 1rem 2rem;
+        border: none;
+        border-radius: 50px;
+        font-weight: 600;
+        font-size: 1.1rem;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        box-shadow: 0 6px 20px var(--shadow);
+        text-decoration: none;
+        display: inline-block;
+      }
+      
+      .btn-hero-primary:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 10px 30px var(--shadow);
+        color: white;
+        text-decoration: none;
+      }
+      
+      .btn-hero-secondary {
+        background: transparent;
+        color: var(--primary-green);
+        border: 2px solid var(--secondary-green);
+        padding: 1rem 2rem;
+        border-radius: 50px;
+        font-weight: 600;
+        font-size: 1.1rem;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        text-decoration: none;
+        display: inline-block;
+      }
+      
+      .btn-hero-secondary:hover {
+        background: var(--secondary-green);
+        color: white;
+        transform: translateY(-3px);
+        text-decoration: none;
+      }
+      
+      .features-section {
+        padding: 6rem 2rem;
+        background: white;
+        position: relative;
+        z-index: 2;
+      }
+      
+      .features-title {
+        text-align: center;
+        font-size: 3rem;
+        font-weight: 700;
+        color: var(--primary-green);
+        margin-bottom: 3rem;
+      }
+      
+      .features-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 2rem;
+        max-width: 1200px;
+        margin: 0 auto;
+      }
+      
+      .feature-card {
+        background: white;
+        padding: 2.5rem;
+        border-radius: 20px;
+        box-shadow: 0 10px 30px var(--shadow);
+        text-align: center;
+        transition: all 0.3s ease;
+        border: 1px solid rgba(127, 176, 105, 0.1);
+        position: relative;
+        overflow: hidden;
+      }
+      
+      .feature-card:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 20px 40px var(--shadow);
+      }
+      
+      .feature-icon {
+        width: 80px;
+        height: 80px;
+        background: linear-gradient(135deg, var(--accent-green), var(--secondary-green));
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto 1.5rem;
+        font-size: 2rem;
+        color: white;
+      }
+      
+      .feature-card h3 {
+        font-size: 1.5rem;
+        color: var(--primary-green);
+        margin-bottom: 1rem;
+        font-weight: 600;
+      }
+      
+      .feature-card p {
+        color: var(--text-dark);
+        line-height: 1.6;
+      }
+      
+      .stats-section {
+        padding: 4rem 2rem;
+        background: linear-gradient(135deg, var(--primary-green), var(--secondary-green));
+        color: white;
+        position: relative;
+        z-index: 2;
+      }
+      
+      .stats-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 2rem;
+        text-align: center;
+        max-width: 1000px;
+        margin: 0 auto;
+      }
+      
+      .stat-item h3 {
+        font-size: 3rem;
+        font-weight: 800;
+        margin-bottom: 0.5rem;
+      }
+      
+      .stat-item p {
+        font-size: 1.1rem;
+        opacity: 0.9;
+      }
+      
+      .cta-section {
+        padding: 6rem 2rem;
+        background: linear-gradient(135deg, #f8fffe 0%, #e8f5e8 100%);
+        text-align: center;
+        position: relative;
+        z-index: 2;
+      }
+      
+      .cta-content {
+        max-width: 600px;
+        margin: 0 auto;
+      }
+      
+      .cta-section h2 {
+        font-size: 2.5rem;
+        color: var(--primary-green);
+        margin-bottom: 1rem;
+        font-weight: 700;
+      }
+      
+      .cta-section p {
+        font-size: 1.2rem;
+        color: var(--text-dark);
+        margin-bottom: 2rem;
+        line-height: 1.6;
+      }
+      
+      .footer-section {
+        background: var(--primary-green);
+        color: white;
+        padding: 3rem 2rem 1rem;
+        position: relative;
+        z-index: 2;
+      }
+      
+      .footer-content {
+        max-width: 1200px;
+        margin: 0 auto;
+      }
+      
+      .footer-columns {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 2rem;
+        margin-bottom: 2rem;
+      }
+      
+      .footer-col h3 {
+        margin-bottom: 1rem;
+        color: var(--light-green);
+        font-weight: 600;
+      }
+      
+      .footer-col p {
+        color: rgba(255, 255, 255, 0.8);
+        margin-bottom: 0.5rem;
+        line-height: 1.6;
+      }
+      
+      .footer-col ul {
+        list-style: none;
+        padding: 0;
+      }
+      
+      .footer-col ul li {
+        color: rgba(255, 255, 255, 0.8);
+        margin-bottom: 0.5rem;
+        transition: color 0.3s ease;
+        cursor: pointer;
+      }
+      
+      .footer-col ul li:hover {
+        color: var(--light-green);
+      }
+      
+      .footer-col a {
+        color: rgba(255, 255, 255, 0.8);
+        text-decoration: none;
+        transition: color 0.3s ease;
+      }
+      
+      .footer-col a:hover {
+        color: var(--light-green);
+        text-decoration: none;
+      }
+      
+      .footer-bottom {
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+        padding-top: 2rem;
+        text-align: center;
+        color: rgba(255, 255, 255, 0.7);
+        font-size: 0.9rem;
+      }
+      
+      @media (max-width: 768px) {
+        .hero-title { font-size: 2.5rem; }
+        .hero-subtitle { font-size: 1.1rem; }
+        .hero-buttons { flex-direction: column; align-items: center; }
+        .features-title { font-size: 2rem; }
+        .feature-card { padding: 1.5rem; }
+      }
+    "))
     ),
-    tags$footer(
-      style = "position: fixed; bottom: 0; width: 100%; text-align: center;
-             padding: 10px; background-color: #f8f9fa; border-top: 1px solid #dee2e6;",
-      "Created by Israel Tawiah Tetteh | Teaching and Research Assistant | Year 2023/2024",
-      br(),
-      "Contact: israeltetteh715@gmail.com"
+    
+    # JavaScript for animations
+    tags$script(HTML("
+    $(document).ready(function() {
+      // Create particles
+      function createParticle() {
+        var particle = $('<div class=\"particle\"></div>');
+        particle.css({
+          'left': Math.random() * 100 + '%',
+          'animation-delay': Math.random() * 6 + 's',
+          'animation-duration': (Math.random() * 3 + 3) + 's'
+        });
+        $('.particles').append(particle);
+        
+        setTimeout(function() {
+          particle.remove();
+        }, 6000);
+      }
+      
+      // Create particles continuously
+      setInterval(createParticle, 300);
+      
+      // Smooth scrolling for anchor links
+      $('a[href^=\"#\"]').click(function(e) {
+        e.preventDefault();
+        var target = $($(this).attr('href'));
+        if (target.length) {
+          $('html, body').animate({
+            scrollTop: target.offset().top - 80
+          }, 800);
+        }
+      });
+      
+      // Scroll to sections when navigation buttons are clicked
+      $('.btn-hero-secondary').click(function(e) {
+        e.preventDefault();
+        $('html, body').animate({
+          scrollTop: $('.features-section').offset().top - 80
+        }, 800);
+      });
+    });
+  ")),
+    
+    # Main content
+    div(class = "landing-page",
+        # Particles background
+        div(class = "particles"),
+        
+        # Hero Section
+        div(class = "hero-section",
+            div(class = "hero-content",
+                h1(class = "hero-title", "Advanced Plant Tissue Culture Analysis"),
+                p(class = "hero-subtitle", 
+                  "Streamline your research with automated datasheet generation, comprehensive statistical analysis, and publication-ready visualizations for plant tissue culture experiments."
+                ),
+                div(class = "hero-buttons",
+                    # Links to other tabs in your app
+                    tags$a(href = "#", class = "btn-hero-primary", 
+                           onclick = "$('.nav-tabs a[href=\"#shiny-tab-2\"]').tab('show'); return false;",
+                           "Start Analyzing"),
+                    tags$a(href = "#features", class = "btn-hero-secondary", "Learn More")
+                )
+            )
+        ),
+        
+        # Features Section
+        div(class = "features-section", id = "features",
+            h2(class = "features-title", "Powerful Research Tools"),
+            div(class = "features-grid",
+                div(class = "feature-card",
+                    div(class = "feature-icon", "📊"),
+                    h3("Smart Datasheet Generation"),
+                    p("Create customized data collection templates for single factor or factorial experiments with predefined parameters and flexible customization options.")
+                ),
+                div(class = "feature-card",
+                    div(class = "feature-icon", "🔬"),
+                    h3("Advanced Statistical Analysis"),
+                    p("Perform comprehensive statistical analysis including ANOVA, LSD, Tukey's HSD, and automatic normality testing with Yeo-Johnson transformations.")
+                ),
+                div(class = "feature-card",
+                    div(class = "feature-icon", "📈"),
+                    h3("Growth Trend Visualization"),
+                    p("Track and visualize growth patterns over time with interactive plots and smooth trend analysis for better insights into plant development.")
+                ),
+                div(class = "feature-card",
+                    div(class = "feature-icon", "🎨"),
+                    h3("Publication-Ready Plots"),
+                    p("Generate professional boxplots and bar charts with customizable aesthetics, perfect for research papers and presentations.")
+                ),
+                div(class = "feature-card",
+                    div(class = "feature-icon", "⚡"),
+                    h3("Automated Processing"),
+                    p("Intelligent data preprocessing with outlier detection, missing value handling, and automatic selection of appropriate statistical tests.")
+                ),
+                div(class = "feature-card",
+                    div(class = "feature-icon", "💾"),
+                    h3("Export & Download"),
+                    p("Download complete analysis results in Excel format and high-quality plots in PDF format for easy sharing and publication.")
+                )
+            )
+        ),
+        
+        # Stats Section
+        div(class = "stats-section",
+            div(class = "stats-grid",
+                div(class = "stat-item",
+                    h3("10+"),
+                    p("Built-in Parameters")
+                ),
+                div(class = "stat-item",
+                    h3("3"),
+                    p("Statistical Test Types")
+                ),
+                div(class = "stat-item",
+                    h3("∞"),
+                    p("Custom Treatments")
+                ),
+                div(class = "stat-item",
+                    h3("100%"),
+                    p("Open Source")
+                )
+            )
+        ),
+        
+        # CTA Section
+        div(class = "cta-section",
+            div(class = "cta-content",
+                h2("Ready to Transform Your Research?"),
+                p("Join researchers worldwide who are streamlining their plant tissue culture analysis with our comprehensive toolkit."),
+                # Link to Generate Datasheet tab
+                tags$a(href = "#", class = "btn-hero-primary",
+                       onclick = "$('.nav-tabs a[href=\"#shiny-tab-2\"]').tab('show'); return false;",
+                       "Launch PTC Analysis Tool")
+            )
+        ),
+        
+        # Footer Section
+        tags$footer(class = "footer-section",
+                    div(class = "footer-content",
+                        div(class = "footer-columns",
+                            div(class = "footer-col",
+                                h3("PTC Analysis Tool"),
+                                p("Advanced statistical analysis and visualization platform for plant tissue culture research.")
+                            ),
+                            div(class = "footer-col",
+                                h3("Features"),
+                                tags$ul(
+                                  tags$li("Datasheet Generation"),
+                                  tags$li("Statistical Analysis"),
+                                  tags$li("Growth Trends"),
+                                  tags$li("Data Visualization")
+                                )
+                            ),
+                            div(class = "footer-col",
+                                h3("Support"),
+                                tags$ul(
+                                  tags$li("Documentation"),
+                                  tags$li("Tutorials"),
+                                  tags$li("FAQ"),
+                                  tags$li("Contact Support")
+                                )
+                            ),
+                            div(class = "footer-col",
+                                h3("Connect"),
+                                p(tags$a(href = "mailto:israeltetteh715@gmail.com", "israeltetteh715@gmail.com")),
+                                p("Teaching & Research Assistant"),
+                                p("Academic Year 2023/2024")
+                            )
+                        ),
+                        div(class = "footer-bottom",
+                            p("© 2024 PTC Analysis Tool. Created by Israel Tawiah Tetteh. All rights reserved.")
+                        )
+                    )
+        )
     )
   ),
   #   # Navbar menu items with other functionalities included.
